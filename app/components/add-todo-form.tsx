@@ -1,11 +1,17 @@
 'use client';
 import { useState } from 'react';
+import { useTodoStore } from '../lib/todo-store';
 
 export default function AddTodoForm() {
   const [input, setInput] = useState('');
+  const addTodos = useTodoStore((state) => state.addTodo);
 
   const handleSubmit = () => {
     console.log('submit:', input);
+    if (input) {
+      addTodos(input);
+      setInput('');
+    }
   };
   return (
     <div className="mb-6 flex gap-2">
