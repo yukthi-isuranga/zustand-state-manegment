@@ -1,6 +1,8 @@
 import { Todo } from '@/types/todo';
+import { useTodoStore } from '../lib/todo-store';
 
 export default function TodoItem({ todo }: { todo: Todo }) {
+  const deleteTodo = useTodoStore((state) => state.deleteTodo);
   return (
     <div
       className={`flex items-center gap-3 p-3 border rounded-lg ${todo.completed ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-300'}`}
@@ -29,7 +31,10 @@ export default function TodoItem({ todo }: { todo: Todo }) {
           <button className="text-sm text-blue-600 hover:underline">
             Edit
           </button>
-          <button className="text-sm text-red-600 hover:underline">
+          <button
+            className="text-sm text-red-600 hover:underline"
+            onClick={() => deleteTodo(todo.id)}
+          >
             Delete
           </button>
         </>
