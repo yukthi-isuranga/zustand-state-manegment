@@ -3,6 +3,7 @@ import { useTodoStore } from '../lib/todo-store';
 
 export default function TodoItem({ todo }: { todo: Todo }) {
   const deleteTodo = useTodoStore((state) => state.deleteTodo);
+  const toggleTodo = useTodoStore((state) => state.toggleTodo);
   return (
     <div
       className={`flex items-center gap-3 p-3 border rounded-lg ${todo.completed ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-300'}`}
@@ -13,6 +14,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
         checked={todo.completed}
         readOnly
         className="w-5 h-5 text-blue-600"
+        onClick={() => toggleTodo(todo.id)}
       />
 
       {/* Text todo */}
