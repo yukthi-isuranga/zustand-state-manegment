@@ -1,10 +1,22 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { useTodoStore } from '../lib/todo-store';
 
 export default function TodoStats() {
   const totals = useTodoStore((state) => state.getTotals);
-
   const stats = totals();
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      setMounted(true);
+    };
+  }, []);
+
+  if (!mounted) {
+    return <div className="mb-4 text-gray-500"> Loading...</div>;
+  }
+
   // const stats = {
   //   total: 10,
   //   active: 5,
