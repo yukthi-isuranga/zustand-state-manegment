@@ -1,4 +1,4 @@
-import { Todo } from '@/types/todo';
+import { Todo, Totals } from '@/types/todo';
 import { create } from 'zustand';
 
 interface TodoSore {
@@ -7,8 +7,9 @@ interface TodoSore {
   deleteTodo: (id: string) => void;
   toggleTodo: (id: string) => void;
   editTodo: (id: string, text: string) => void;
+  getTotals: () => Totals;
 }
-export const useTodoStore = create<TodoSore>((set) => ({
+export const useTodoStore = create<TodoSore>((set, get) => ({
   todos: [
     {
       id: '001',
@@ -62,4 +63,14 @@ export const useTodoStore = create<TodoSore>((set) => ({
           : todo,
       ),
     })),
+
+  // Get Computed Values
+  getTotals: () => {
+    const { todos } = get();
+    return {
+      total: todos.length,
+      active: todos.filter((e) => !e.completed).length,
+      completed: todos.filter((e) => e.completed).length,
+    };
+  },
 }));

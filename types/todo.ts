@@ -4,3 +4,9 @@ export interface Todo {
   completed: boolean;
   createdAt: Date;
 }
+
+export interface Totals {
+  total: number;
+  active: number;
+  completed: number;
+}
