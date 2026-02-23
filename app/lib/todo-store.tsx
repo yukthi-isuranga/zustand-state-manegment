@@ -6,6 +6,7 @@ interface TodoSore {
   addTodo: (text: string) => void;
   deleteTodo: (id: string) => void;
   toggleTodo: (id: string) => void;
+  editTodo: (id: string, text: string) => void;
 }
 export const useTodoStore = create<TodoSore>((set) => ({
   todos: [
@@ -45,6 +46,20 @@ export const useTodoStore = create<TodoSore>((set) => ({
     set((state) => ({
       todos: state.todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
+    })),
+
+  // edit todo text
+  editTodo: (id: string, text: string) =>
+    set((state) => ({
+      todos: state.todos.map((todo) =>
+        todo.id === id
+          ? {
+              ...todo,
+              // text: todo.id === id ? text : todo.text,
+              text: text,
+            }
+          : todo,
       ),
     })),
 }));
